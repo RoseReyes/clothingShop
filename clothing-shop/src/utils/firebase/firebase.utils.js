@@ -25,24 +25,28 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: "select_account"
 });
 
+// Keep track of all the authentication methods the app might use
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
+export const signInWithGooglePopup = () => 
+  signInWithPopup(auth, googleProvider);
+
+// Optional - should implement in sign-in component to use
+export const signInWithGoogleRedirect = () => 
+  signInWithRedirect(auth, googleProvider);
+
+// Instantiate our database
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(db, 'users', userAuth.uid);
-
-  console.log(userDocRef);
-
   const userSnapshot = await getDoc(userDocRef);
-  console.log(userSnapshot);
 
   if(!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
@@ -60,8 +64,4 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   }
 
   return userDocRef;
-  // check if user data exists
-  // return userdocRef
-  // else 
-  // create /set the document
 }
