@@ -1,4 +1,5 @@
-import { initializeApp } from 'firebase/app'; // creates an app instacnce for a config object
+// creates an app instance for a config object
+import { initializeApp } from 'firebase/app'; 
 import {  
   getAuth, 
   signInWithRedirect, 
