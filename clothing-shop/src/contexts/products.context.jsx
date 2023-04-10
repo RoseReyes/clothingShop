@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import PRODUCTS from "../shop-data.json";
+import SHOP_DATA from "../shop-data.js";
 
 // as the actual value you want to access
 export const ProductsContext = createContext({
@@ -8,7 +8,7 @@ export const ProductsContext = createContext({
 
 // provider; the actual component that wrap around other components that needs the actual data
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState(PRODUCTS);
+  const [products, setProducts] = useState([]);
   const value = { products };
   return (
     <ProductsContext.Provider value={value}>
