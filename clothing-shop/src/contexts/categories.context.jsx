@@ -3,26 +3,27 @@ import { createContext, useEffect, useState } from "react";
 import { addCollectionAndDocuments, getCategoriesAndDocuments } from "../utils/firebase/firebase.utils.js";
 
 // as the actual value you want to access
-export const ProductsContext = createContext({
+export const CategoriesContext = createContext({
   products: [],
 });
 
 // provider; the actual component that wrap around other components that needs the actual data
-export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
-  const value = { products };
+export const CategoriesProvider = ({ children }) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
 
   useEffect(() => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
+      setCategoriesMap(categoryMap);
     };
 
     getCategoriesMap();
   },[]);
 
+  const value = { categoriesMap };
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 };
