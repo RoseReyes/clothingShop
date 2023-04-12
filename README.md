@@ -1,4 +1,4 @@
-# clothingShop
+# React E-commerce
 
 Full-stack implementation of an online store with the following technologies:
 
